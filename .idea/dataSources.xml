@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="jdfresh@49.233.173.72" uuid="b0948bdd-ebf6-4f09-bc25-6aacfcb0041e">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://49.233.173.72:3306/jdfresh</jdbc-url>
+    </data-source>
+  </component>
+</project>
