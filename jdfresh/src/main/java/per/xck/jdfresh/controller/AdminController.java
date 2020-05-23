@@ -1,8 +1,8 @@
 package per.xck.jdfresh.controller;
 
-import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import per.xck.jdfresh.entity.*;
@@ -24,7 +24,7 @@ public class AdminController {
     @Autowired
     FreshRepository freshRepository;
     @Autowired
-    OrderRepository orderRepository;
+    OrdersRepository ordersRepository;
 
     @ApiOperation("管理员登录")
     @PostMapping("/api/admin/login")
@@ -171,7 +171,35 @@ public class AdminController {
 
     @ApiOperation("获取所有订单信息")
     @GetMapping("/api/admin-order/getAllOrders")
-    public List<Order> getAllOrders(){
-        return orderRepository.findAll();
+    public List<Orders> getAllOrders(){
+        return ordersRepository.findAll();
+    }
+
+    @ApiOperation("删除订单")
+    @PostMapping("/api/admin-order/deleteOrdersById")
+    public String deleteOrdersById(@ApiParam("id") @RequestParam("id") String id){
+        ordersRepository.deleteById(Integer.parseInt(id));
+        return "删除成功";
+    }
+
+    @ApiOperation("修改订单")
+    @PostMapping("/api/admin-order/modifyOrders")
+    public String modifyOrders(@ApiParam("id") @RequestParam("id") String id,
+                               @ApiParam("订单内容") @RequestParam("content") String content,
+                               @ApiParam("下单人") @RequestParam("username") String username,
+                               @ApiParam("派送员") @RequestParam("deliverier") String deliverier,
+                               @ApiParam("送货地址") @RequestParam("address") String address,
+                               @ApiParam("下单时间") @RequestParam("orderTime") String orderTime,
+                               @ApiParam("收货时间") @RequestParam("receiptTime") String receiptTime,
+                               @ApiParam("状态") @RequestParam("status") String status
+                               ){
+        Orders orders = ordersRepository.getOne(Integer.parseInt(id));
+        orders.setContent(content);
+        orders.setAddress(address);
+        orders.setStatus(status);
+        orders.setDeliverier(deliverier);
+        orders.setUsername(username);
+        ordersRepository.save(orders);
+        return "修改成功";
     }
 }

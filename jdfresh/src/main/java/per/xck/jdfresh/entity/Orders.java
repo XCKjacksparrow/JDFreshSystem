@@ -6,16 +6,18 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @ApiModel("订单类")
-@Table(name = "order")
+@Table(name = "orders")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Order {
+@ToString
+public class Orders {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,6 +35,10 @@ public class Order {
     @Column
     @ApiModelProperty("派送员")
     private String deliverier;
+
+    @Column
+    @ApiModelProperty("送货地址")
+    private String address;
 
     @Column
     @ApiModelProperty("下单时间")
