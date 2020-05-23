@@ -51,4 +51,12 @@ public class Orders {
     @Column
     @ApiModelProperty("状态")
     private String status;
+
+    @Column
+    @ApiModelProperty("订单价格")
+    private Double price;
+
+    @Column
+    @ApiModelProperty("是否付款 0--未付款 1--已付款")
+    private Integer isPaid;
 }

@@ -189,8 +189,9 @@ public class AdminController {
                                @ApiParam("下单人") @RequestParam("username") String username,
                                @ApiParam("派送员") @RequestParam("deliverier") String deliverier,
                                @ApiParam("送货地址") @RequestParam("address") String address,
+                               @ApiParam("订单价格") @RequestParam("price") String price,
+                               @ApiParam("是否付款") @RequestParam("isPaid") Integer isPaid,
                                @ApiParam("下单时间") @RequestParam("orderTime") String orderTime,
-                               @ApiParam("收货时间") @RequestParam("receiptTime") String receiptTime,
                                @ApiParam("状态") @RequestParam("status") String status
                                ){
         Orders orders = ordersRepository.getOne(Integer.parseInt(id));
@@ -199,6 +200,8 @@ public class AdminController {
         orders.setStatus(status);
         orders.setDeliverier(deliverier);
         orders.setUsername(username);
+        orders.setPrice(Double.parseDouble(price));
+        orders.setIsPaid(isPaid);
         ordersRepository.save(orders);
         return "修改成功";
     }
