@@ -16,10 +16,10 @@ import java.util.ArrayList;
 @EnableSwagger2         // 开启Swagger2
 public class SwaggerConfig {
 
-    @Bean
-    public Docket docket1(){
-        return new Docket(DocumentationType.SWAGGER_2).groupName("X");
-    }
+//    @Bean
+//    public Docket docket1(){
+//        return new Docket(DocumentationType.SWAGGER_2).groupName("X");
+//    }
 
     // 配置了Swagger的Docket的实例
     @Bean
