@@ -25,7 +25,7 @@
 生鲜: id, 生鲜种类, 名称, 数量
 
 ## 技术栈
-前端: vue vue-router vuex axios
+前端: vue vue-router vuex axios element-ui
 
 后端: Springboot Jpa Swagger2
 
