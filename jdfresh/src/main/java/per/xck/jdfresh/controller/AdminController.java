@@ -1,15 +1,17 @@
 package per.xck.jdfresh.controller;
 
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import per.xck.jdfresh.entity.Admin;
+import per.xck.jdfresh.entity.Fresh;
+import per.xck.jdfresh.entity.FreshCategory;
 import per.xck.jdfresh.entity.User;
 import per.xck.jdfresh.repository.AdminRepository;
+import per.xck.jdfresh.repository.FreshCategoryRepository;
+import per.xck.jdfresh.repository.FreshRepository;
 import per.xck.jdfresh.repository.UserRepository;
 import per.xck.jdfresh.util.LoginType;
 
@@ -23,6 +25,10 @@ public class AdminController {
     AdminRepository adminRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    FreshCategoryRepository freshCategoryRepository;
+    @Autowired
+    FreshRepository freshRepository;
 
     @ApiOperation("管理员登录")
     @PostMapping("/api/admin/login")
@@ -91,5 +97,43 @@ public class AdminController {
         user.setIsdeliverier(Integer.parseInt(isdeliverier));
         userRepository.save(user);
         return "修改成功";
+    }
+
+    @ApiOperation("获取生鲜种类")
+    @GetMapping("/api/admin/getAllFreshCategories")
+    public List<FreshCategory> getAllFreshCategories(){
+        return freshCategoryRepository.findAll();
+    }
+
+    @ApiOperation("添加生鲜种类")
+    @PostMapping("/api/admin/addFreshCategories")
+    public String addFreshCategories(@ApiParam("生鲜种类名称") @RequestParam("name")String name){
+        FreshCategory freshCategory = new FreshCategory();
+        freshCategory.setName(name);
+        freshCategoryRepository.save(freshCategory);
+        return "添加成功";
+    }
+
+    @ApiOperation("删除生鲜种类")
+    @PostMapping("/api/admin/deleteFreshCategoriesById")
+    public String deleteFreshCategoriesById(@ApiParam("id") @RequestParam("id")String id){
+        freshCategoryRepository.deleteById(Integer.parseInt(id));
+        return "删除成功";
+    }
+
+    @ApiOperation("修改生鲜种类信息")
+    @PostMapping("/api/admin/ModifyFreshCategories")
+    public String ModifyFreshCategories(@ApiParam("id") @RequestParam("id")String id,
+                                        @ApiParam("生鲜种类名称") @RequestParam("name")String name){
+        FreshCategory one = freshCategoryRepository.getOne(Integer.parseInt(id));
+        one.setName(name);
+        freshCategoryRepository.save(one);
+        return "删除成功";
+    }
+
+    @ApiOperation("根据生鲜种类获取所有生鲜")
+    @PostMapping("/api/admin/getAllFreshByFreshCategory")
+    public List<Fresh>  getAllFreshByFreshCategory(@ApiParam("生鲜种类")@RequestParam("freshCategory") String freshCategory){
+        return freshRepository.getAllFreshByFreshCategory(freshCategory);
     }
 }
