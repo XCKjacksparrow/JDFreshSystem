@@ -137,12 +137,14 @@ public class AdminController {
     @PostMapping("/api/admin-fresh/addFresh")
     public String addFresh(@ApiParam("生鲜名称") @RequestParam("name")String name,
                            @ApiParam("生鲜种类名称") @RequestParam("freshCategory")String freshCategory,
-                           @ApiParam("数量") @RequestParam("amount")String amount
+                           @ApiParam("数量") @RequestParam("amount")String amount,
+                           @ApiParam("单价") @RequestParam("price")String price
                            ){
         Fresh fresh = new Fresh();
         fresh.setName(name);
         fresh.setFreshCategory(freshCategory);
         fresh.setAmount(Integer.parseInt(amount));
+        fresh.setPrice(Double.parseDouble(price));
         freshRepository.save(fresh);
         return "添加成功";
     }
@@ -156,15 +158,17 @@ public class AdminController {
 
     @ApiOperation("修改生鲜信息")
     @PostMapping("/api/admin-fresh/modifyFresh")
-    public String addFresh(@ApiParam("id") @RequestParam("id")String id,
+    public String modifyFresh(@ApiParam("id") @RequestParam("id")String id,
                            @ApiParam("生鲜名称") @RequestParam("name")String name,
                            @ApiParam("生鲜种类名称") @RequestParam("freshCategory")String freshCategory,
-                           @ApiParam("数量") @RequestParam("amount")String amount
+                           @ApiParam("数量") @RequestParam("amount")String amount,
+                           @ApiParam("单价") @RequestParam("price")String price
     ){
         Fresh fresh = freshRepository.getOne(Integer.parseInt(id));
         fresh.setName(name);
         fresh.setFreshCategory(freshCategory);
         fresh.setAmount(Integer.parseInt(amount));
+        fresh.setPrice(Double.parseDouble(price));
         freshRepository.save(fresh);
         return "修改成功";
     }

@@ -32,4 +32,8 @@ public class Fresh {
     @Column
     @ApiModelProperty("数量")
     private Integer amount;
+
+    @Column
+    @ApiModelProperty("单价")
+    private Double price;
 }
