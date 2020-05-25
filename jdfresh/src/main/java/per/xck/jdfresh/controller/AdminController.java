@@ -209,4 +209,17 @@ public class AdminController {
         ordersRepository.save(orders);
         return "修改成功";
     }
+
+    @ApiOperation("修改订单状态与地址")
+    @PostMapping("/api/admin-order/modifyOrdersStatusAndAddress")
+    public String modifyOrdersStatusAndAddress(@ApiParam("id") @RequestParam("id") String id,
+                               @ApiParam("送货地址") @RequestParam("address") String address,
+                               @ApiParam("状态") @RequestParam("status") String status
+    ){
+        Orders orders = ordersRepository.getOne(Integer.parseInt(id));
+        orders.setAddress(address);
+        orders.setStatus(status);
+        ordersRepository.save(orders);
+        return "修改成功";
+    }
 }
